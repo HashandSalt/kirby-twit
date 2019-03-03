@@ -19,7 +19,7 @@ Download and copy this repository to `/site/plugins/twit`.
 ### Composer
 
 ```
-composer require hashandsalt/twit
+composer require hashandsalt/kirby-twit
 ```
 
 ## Setup
