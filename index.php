@@ -16,12 +16,6 @@
 require_once('src/index.php');
 
 Kirby::plugin('hashandsalt/twit', [
-    // Options
-    'options' => [
-      'twit.count' => '12',
-      'twit.cacheenable' => true,
-      'cache.tweets' => true,
-    ],
 
     'siteMethods' => [
         'twit' => function ($type, $count) {
