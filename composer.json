@@ -1,0 +1,24 @@
+{
+    "name": "hashandsalt/twit",
+    "description": "Kirby 3 Twit Plugin for working with Tweets",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Steel",
+            "email": "hello@hashandsalt.com"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1",
+        "abraham/twitteroauth": "^1.0"
+    },
+    "autoload": {
+    "psr-4": {
+        "hashandsalt\\twit\\": "src/"
+    }
+},
+    "config": {
+        "optimize-autoloader": true
+    }
+}
