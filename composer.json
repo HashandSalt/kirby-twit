@@ -1,5 +1,5 @@
 {
-    "name": "hashandsalt/twit",
+    "name": "hashandsalt/kirby-twit",
     "description": "Kirby 3 Twit Plugin for working with Tweets",
     "type": "kirby-plugin",
     "license": "MIT",
