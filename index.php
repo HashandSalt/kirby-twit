@@ -17,6 +17,11 @@ require_once('src/index.php');
 
 Kirby::plugin('hashandsalt/twit', [
 
+  // Options
+  'options' => [
+    'cache.tweets' => true,
+  ],
+
     'siteMethods' => [
         'twit' => function ($type, $count) {
             $twitstatuses = twit($type, $count);

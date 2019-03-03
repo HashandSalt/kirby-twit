@@ -6,47 +6,6 @@ global $twitter;
 
 $twitter = new TwitterOAuth(option('twit.consumerkey'), option('twit.consumersecret'), option('twit.accesstoken'), option('twit.accesstokensecret'));
 
-// Clickable URLS
-function setLinks ($source) {
-  array_walk_recursive(
-    $source,
-      function (&$value, &$key) {
-        if (in_array($key, array('url','text','expanded_url','description','display_url'), true ) ) {
-          if (!is_array($value)) {
-            $value = linkify($value);
-          }
-        }
-      }
-    );
-  return $source;
-}
-
-// Get The Tweets
-function twitMuncher($type, $count) {
-  global $twitter;
-
-  $twitterCache = kirby()->cache('hashandsalt.twit.tweets');
-  $tweetlist = $twitterCache->get('twitterData');
-
-  // There's nothing in the cache, so let's fetch it
-  if ($tweetlist === null) {
-    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true]);
-    $tweetlist = json_decode(json_encode($tweetlist), true);
-    $twitterCache->set('twitterData', $tweetlist);
-  }
-
-  return $tweetlist;
-
-}
-
-// Give me the tweets
-function twit($type, $count) {
-  $tweets = twitMuncher($type, $count);
-  $tweets = setLinks($tweets);
-
-  return $tweets;
-}
-
 
 /**
  * Turn all URLs in clickable links.
@@ -83,4 +42,46 @@ function linkify($value, $protocols = array('http', 'https', 'twitter', 'mail'),
 
     // Insert all link
     return preg_replace_callback('/<(\d+)>/', function ($match) use (&$links) { return $links[$match[1] - 1]; }, $value);
+}
+
+
+// Clickable URLS
+function setLinks ($source) {
+  array_walk_recursive(
+    $source,
+      function (&$value, &$key) {
+        if (in_array($key, array('url','text','expanded_url','description','display_url'), true ) ) {
+          if (!is_array($value)) {
+            $value = linkify($value);
+          }
+        }
+      }
+    );
+  return $source;
+}
+
+// Get The Tweets
+function twitMuncher($type, $count) {
+  global $twitter;
+
+  $twitterCache = kirby()->cache('hashandsalt.kirby-twit.tweets');
+  $tweetlist = $twitterCache->get('twitterData');
+
+  // There's nothing in the cache, so let's fetch it
+  if ($tweetlist === null) {
+    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true]);
+    $tweetlist = json_decode(json_encode($tweetlist), true);
+    $twitterCache->set('twitterData', $tweetlist);
+  }
+
+  return $tweetlist;
+
+}
+
+// Give me the tweets
+function twit($type, $count) {
+  $tweets = twitMuncher($type, $count);
+  $tweets = setLinks($tweets);
+
+  return $tweets;
 }
