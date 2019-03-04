@@ -15,7 +15,7 @@
 
 require_once('src/index.php');
 
-Kirby::plugin('hashandsalt/twit', [
+Kirby::plugin('hashandsalt/kirby-twit', [
 
   // Options
   'options' => [
@@ -23,8 +23,8 @@ Kirby::plugin('hashandsalt/twit', [
   ],
 
     'siteMethods' => [
-        'twit' => function ($type, $count) {
-            $twitstatuses = twit($type, $count);
+        'twit' => function ($type, $count, $cachefile) {
+            $twitstatuses = twit($type, $count, $cachefile);
             return $twitstatuses;
         }
     ],

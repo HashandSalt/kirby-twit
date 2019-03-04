@@ -2,6 +2,12 @@
 
 A small plugin that is a wrapper around [twitteroauth](https://github.com/abraham/twitteroauth). Allows you to display tweets on your website without having use Twitters embedded timelines.
 
+Features:
+
+* Display tweets on your site using your own markup.
+* Caches results from API, in a unique file per set
+* Automagically turns all links, hashtags and @ mentions into clickable links.
+
 ****
 
 ## How to use Twit
@@ -35,12 +41,12 @@ You wont get far without authenticating. Set the following in your config to gai
 
 ## Usage
 
-Create a collection to hold your tweets so you can get at them across the site. This will get the last 25 tweets:
+Create a collection to hold your tweets so you can get at them across the site. This will get the last 25 tweets and store it in a cache file called 'userTweets':
 
 ```
 <?php
 return function ($site) {
-    return $site->twit('statuses/user_timeline', 25);
+    return $site->twit('statuses/user_timeline', 25, 'userTweets');
 };
 ```
 
@@ -60,6 +66,12 @@ Then use it in a loop like this:
 </div>
 ```
 The full information from the API is in the collection. `var_dump` the collection to see other information you may want to use.
+
+## Known Issues
+
+Since this plugin uses caching, if you change the collection rule, you may have to wait up to 30 minutes to see the changes, or you can delete the cache file, or you can tell it to use a new one.
+
+
 
 ## License
 

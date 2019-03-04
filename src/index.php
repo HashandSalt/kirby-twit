@@ -61,17 +61,17 @@ function setLinks ($source) {
 }
 
 // Get The Tweets
-function twitMuncher($type, $count) {
+function twitMuncher($type, $count, $cachefile) {
   global $twitter;
 
   $twitterCache = kirby()->cache('hashandsalt.kirby-twit.tweets');
-  $tweetlist = $twitterCache->get('twitterData');
+  $tweetlist = $twitterCache->get($cachefile);
 
   // There's nothing in the cache, so let's fetch it
   if ($tweetlist === null) {
     $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true]);
     $tweetlist = json_decode(json_encode($tweetlist), true);
-    $twitterCache->set('twitterData', $tweetlist);
+    $twitterCache->set($cachefile, $tweetlist);
   }
 
   return $tweetlist;
@@ -79,8 +79,8 @@ function twitMuncher($type, $count) {
 }
 
 // Give me the tweets
-function twit($type, $count) {
-  $tweets = twitMuncher($type, $count);
+function twit($type, $count, $cachefile) {
+  $tweets = twitMuncher($type, $count, $cachefile);
   $tweets = setLinks($tweets);
 
   return $tweets;
