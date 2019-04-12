@@ -45,6 +45,7 @@ function linkify($value, $protocols = array('http', 'https', 'twitter', 'mail'),
 }
 
 
+
 // Clickable URLS
 function setLinks ($source) {
   array_walk_recursive(
@@ -61,7 +62,7 @@ function setLinks ($source) {
 }
 
 // Get The Tweets
-function twitMuncher($type, $count, $cachefile) {
+function twitMuncher($type, $count, $cachefile, $screenname) {
   global $twitter;
 
   $twitterCache = kirby()->cache('hashandsalt.kirby-twit.tweets');
@@ -69,7 +70,7 @@ function twitMuncher($type, $count, $cachefile) {
 
   // There's nothing in the cache, so let's fetch it
   if ($tweetlist === null) {
-    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true]);
+    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true, "screen_name" => $screenname]);
     $tweetlist = json_decode(json_encode($tweetlist), true);
     $twitterCache->set($cachefile, $tweetlist);
   }
@@ -79,8 +80,8 @@ function twitMuncher($type, $count, $cachefile) {
 }
 
 // Give me the tweets
-function twit($type, $count, $cachefile) {
-  $tweets = twitMuncher($type, $count, $cachefile);
+function twit($type, $count, $cachefile, $screenname) {
+  $tweets = twitMuncher($type, $count, $cachefile, $screenname);
   $tweets = setLinks($tweets);
 
   return $tweets;
