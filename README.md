@@ -86,6 +86,18 @@ Then use it in a loop like this:
 ```
 The full information from the API is in the collection. `var_dump` the collection to see other information you may want to use.
 
+## Kirby Tag
+
+Use the tag like this and just give it a status id:
+
+```
+(twit: 1143433510528737280)
+```
+
+If you want to have more control over the output, copy the `snippets/twit.php` file from the plugin into the usual snippets folder and make your changes there. The default is pretty simple, but there is a lot more data you can use.
+
+Do a `var_dump` on the `$tweetdata` var in the snippet to see everything you can work. Remember to handle missing data - some tweets have images and some don't, so watch out for that!
+
 ## Known Issues
 
 Since this plugin uses caching, if you change the collection rule, you may have to wait up to 30 minutes to see the changes, or you can delete the cache file, or you can tell it to use a new one.
