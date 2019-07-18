@@ -78,7 +78,7 @@ Then use it in a loop like this:
 <div class="block-3">
 <?php foreach($kirby->collection("tweets") as $tweet): ?>
 	<div class="block-col">
-		<p><?= $tweet['text'] ?>
+		<p><?= $tweet['full_text'] ?>
 		<small>at <?= date('j.n.Y H:i', strtotime($tweet['created_at'])) ?></small></p>
 	</div>
 <?php endforeach ?>
