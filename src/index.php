@@ -61,6 +61,25 @@ function setLinks ($source) {
   return $source;
 }
 
+// Get Single Tweet
+function twitID($id) {
+  global $twitter;
+
+  $twitterCache = kirby()->cache('hashandsalt.kirby-twit.tweets');
+  $tweetsingle = $twitterCache->get($id);
+
+  // There's nothing in the cache, so let's fetch it
+  if ($tweetsingle === null) {
+    $tweetsingle = $twitter->get("statuses/show", ["id" => $id]);
+    $tweetsingle = json_decode(json_encode($tweetsingle), true);
+    $twitterCache->set($id, $tweetsingle);
+  }
+
+  return $tweetsingle;
+
+}
+
+
 // Get The Tweets
 function twitMuncher($type, $count, $cachefile, $screenname) {
   global $twitter;
@@ -85,4 +104,11 @@ function twit($type, $count, $cachefile, $screenname) {
   $tweets = setLinks($tweets);
 
   return $tweets;
+}
+
+// Give me the single
+function twitsingle($id) {
+  $tweet = twitID($id);
+  $tweet = setLinks($tweet);
+  return $tweet;
 }

@@ -4,7 +4,7 @@
  *
  * Twit Plugin for Kirby 3
  *
- * @version   0.0.2
+ * @version   0.0.4
  * @author    James Steel <https://hashandsalt.com>
  * @copyright James Steel <https://hashandsalt.com>
  * @link      https://github.com/HashandSalt/twit
@@ -17,16 +17,40 @@ require_once('src/index.php');
 
 Kirby::plugin('hashandsalt/kirby-twit', [
 
-  // Options
-  'options' => [
+    // Options
+    'options' => [
     'cache.tweets' => true,
-  ],
+    ],
 
+    // Site Methods
     'siteMethods' => [
         'twit' => function ($type, $count, $cachefile, $screenname = null) {
             $twitstatuses = twit($type, $count, $cachefile, $screenname);
             return $twitstatuses;
+        },
+
+        'twitid' => function ($id) {
+            $twitid = twitsingle($id);
+            return $twitid;
         }
     ],
+
+    // Snippets
+    'snippets' => [
+      'twit'     => __DIR__ . '/snippets/twit.php',
+    ],
+
+    // Tags
+    'tags' => [
+        'twit' => [
+          'html' => function($tag) {
+
+            $twitstatus = twitsingle($tag->value);
+            $twit = snippet('twit', ['tweetdata' => $twitstatus]);
+            return $twit;
+
+          }
+        ]
+    ]
 
 ]);
