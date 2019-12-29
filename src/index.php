@@ -3,9 +3,18 @@
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 global $twitter;
-
 $twitter = new TwitterOAuth(option('twit.consumerkey'), option('twit.consumersecret'), option('twit.accesstoken'), option('twit.accesstokensecret'));
 
+// Send Tweet
+function sendTweet($tweetcontent) {
+  global $twitter;
+    $statuses = $twitter->post("statuses/update", ["status" => $tweetcontent]);
+    if ($twitter->getLastHttpCode() == 200) {
+      return true;
+    } else {
+      return false;
+    }
+}
 
 /**
  * Turn all URLs in clickable links.

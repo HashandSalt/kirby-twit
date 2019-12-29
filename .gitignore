@@ -1,7 +1,9 @@
 # OS files
 .DS_Store
-
 # npm modules
 /node_modules
 
 # files of Composer dependencies that are not needed for the plugin
+
+.cache
+yarn.lock
