@@ -89,7 +89,7 @@ function twitMuncher($type, $count, $cachefile, $screenname) {
 
   // There's nothing in the cache, so let's fetch it
   if ($tweetlist === null) {
-    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true, "screen_name" => $screenname]);
+    $tweetlist = $twitter->get($type, ['count' => $count, "exclude_replies" => true, "screen_name" => $screenname, "tweet_mode" => option('twit.tweet_mode')]);
     $tweetlist = json_decode(json_encode($tweetlist), true);
     $twitterCache->set($cachefile, $tweetlist);
   }
