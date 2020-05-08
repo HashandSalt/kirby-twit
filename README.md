@@ -48,6 +48,12 @@ You wont get far without authenticating. Set the following in your config to gai
 'twit.accesstokensecret' => 'XXX',
 ```
 
+You also have to set whether you want `compact` or `extended` tweet texts. You set this in your config:
+
+```
+'twit.tweet_mode'       => 'extended',
+```
+
 ## Usage
 
 Create a collection to hold your tweets so you can get at them across the site. This will get the last 25 tweets and store it in a cache file called 'userTweets':
@@ -84,6 +90,9 @@ Then use it in a loop like this:
 <?php endforeach ?>
 </div>
 ```
+
+If you chose `compact` tweet mode, replace `$tweet['full_text']` with `$tweet['text']`.
+
 The full information from the API is in the collection. `var_dump` the collection to see other information you may want to use.
 
 ## Kirby Tag
