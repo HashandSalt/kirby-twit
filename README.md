@@ -1,3 +1,11 @@
+
+----------------------------------------------------------------------------------------------------
+PLUGIN HAS BEEN ARCHIVED!! Please use https://github.com/HashandSalt/kirby3-twitter insted
+----------------------------------------------------------------------------------------------------
+
+
+
+
 # Kirby Twit: Work with Twitter Timelines
 
 A small plugin that is a wrapper around [twitteroauth](https://github.com/abraham/twitteroauth). Allows you to display tweets on your website without having use Twitters embedded timelines.
